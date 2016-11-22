@@ -1,4 +1,8 @@
-var { Router, Route, IndexRoute, Link, browserHistory, hashHistory } = ReactRouter;
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { Router, Route, Link, IndexRoute, hashHistory, browserHistory } from 'react-router'
+
+//import SearchLayout from './search.jsx'
 
 var db = $.idb({
     name:'musikki',
@@ -265,13 +269,12 @@ var FavoritsLayout = React.createClass({
                 {(this.state.data.length > 0
                     ?
                     <ul className="media-list">
-                        {this.state.data.map(function(object, i) {
+                        {this.state.data.map(function(obj, i) {
                             var className = "glyphicon glyphicon-star";
-
                             return <ArtistLayout
-                                image={object.image}
-                                name={object.name}
-                                mkid={object.mkid}
+                                image={obj.image}
+                                name={obj.name}
+                                mkid={obj.mkid}
                                 key={i}
                                 artistOnClick={_this.artistOnClick}
                                 favClasses={className}
