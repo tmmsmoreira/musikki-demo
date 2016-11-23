@@ -210,7 +210,7 @@ var SearchLayout = React.createClass({
                                 <input type="text" className="form-control" id="searchInput" placeholder="Search artist" aria-describedby="search" onChange={this.handleSearchChange}/>
                             </div>
                         </div>
-                        <button type="submit" className="btn btn-primary">Search</button>
+                        <button type="submit" disabled={this.state.loading} className="btn btn-primary">Search</button>
                     </form>
                     <div className="results-layout">
                         <div id="my-loader" className={this.isLoadingActive()}>
