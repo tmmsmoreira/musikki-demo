@@ -134,6 +134,7 @@ var HomePage = React.createClass({
 
 var SearchLayout = React.createClass({
     getInitialState: function() {
+        console.log("xxx");
         return {
             data: [],
             loading: false,
@@ -154,15 +155,17 @@ var SearchLayout = React.createClass({
         return "glyphicon " + (pos < 0 ? "glyphicon-star-empty" : "glyphicon-star");
     },
     artistOnClick: function(i) {
-        favoriteExists(this.state.data[i].mkid).then(function(flag) {
+        var _this = this;
+
+        favoriteExists(_this.state.data[i].mkid).then(function(flag) {
             if (flag) {
                 $(".media .fav").eq(i).removeClass("glyphicon-star").addClass("glyphicon-star-empty");
-                deleteFavorite(this.state.data[i]);
+                deleteFavorite(_this.state.data[i]);
             } else {
                 $(".media .fav").eq(i).removeClass("glyphicon-star-empty").addClass("glyphicon-star");
-                addFavorite(this.state.data[i]);
+                addFavorite(_this.state.data[i]);
             }
-        }).bind(this);
+        });
     },
     loadResultsFromServer: function(e) {
         e.preventDefault();
@@ -254,15 +257,15 @@ var FavoritsLayout = React.createClass({
     artistOnClick: function(i) {
         deleteFavorite(favorits[i]);
         this.setState({
-            data: this.state.data.filter(function (e, idx) {
+            data: this.state.data.filter(function (obj, idx) {
                 return idx !== i;
             })
         });
     },
     render: function() {
-      var _this = this;
-
-      return (
+        var _this = this;
+        
+        return (
         <div className="favorits-layout">
             <div className="results-layout">
                 {(this.state.data.length > 0
@@ -286,7 +289,7 @@ var FavoritsLayout = React.createClass({
                 )}
             </div>
         </div>
-      )
+        )
     }
 });
 

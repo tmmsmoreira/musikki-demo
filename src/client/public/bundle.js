@@ -261,6 +261,7 @@
 	    displayName: 'SearchLayout',
 	
 	    getInitialState: function getInitialState() {
+	        console.log("xxx");
 	        return {
 	            data: [],
 	            loading: false,
@@ -283,15 +284,17 @@
 	        return "glyphicon " + (pos < 0 ? "glyphicon-star-empty" : "glyphicon-star");
 	    },
 	    artistOnClick: function artistOnClick(i) {
-	        favoriteExists(this.state.data[i].mkid).then(function (flag) {
+	        var _this = this;
+	
+	        favoriteExists(_this.state.data[i].mkid).then(function (flag) {
 	            if (flag) {
 	                $(".media .fav").eq(i).removeClass("glyphicon-star").addClass("glyphicon-star-empty");
-	                deleteFavorite(this.state.data[i]);
+	                deleteFavorite(_this.state.data[i]);
 	            } else {
 	                $(".media .fav").eq(i).removeClass("glyphicon-star-empty").addClass("glyphicon-star");
-	                addFavorite(this.state.data[i]);
+	                addFavorite(_this.state.data[i]);
 	            }
-	        }).bind(this);
+	        });
 	    },
 	    loadResultsFromServer: function loadResultsFromServer(e) {
 	        e.preventDefault();
@@ -410,7 +413,7 @@
 	    artistOnClick: function artistOnClick(i) {
 	        deleteFavorite(favorits[i]);
 	        this.setState({
-	            data: this.state.data.filter(function (e, idx) {
+	            data: this.state.data.filter(function (obj, idx) {
 	                return idx !== i;
 	            })
 	        });
