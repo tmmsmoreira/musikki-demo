@@ -134,7 +134,6 @@ var HomePage = React.createClass({
 
 var SearchLayout = React.createClass({
     getInitialState: function() {
-        console.log("xxx");
         return {
             data: [],
             loading: false,
@@ -264,7 +263,7 @@ var FavoritsLayout = React.createClass({
     },
     render: function() {
         var _this = this;
-        
+
         return (
         <div className="favorits-layout">
             <div className="results-layout">
@@ -512,7 +511,7 @@ function addFavorite(props) {
     };
 
     db.put(data, 'favorits').done(function() {
-        favorits[data.mkid] = data;
+        favorits.push(data);
     });
 };
 
