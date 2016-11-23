@@ -283,16 +283,15 @@
 	        return "glyphicon " + (pos < 0 ? "glyphicon-star-empty" : "glyphicon-star");
 	    },
 	    artistOnClick: function artistOnClick(i) {
-	        var _this = this;
-	        favoriteExists(_this.state.data[i].mkid).then(function (flag) {
+	        favoriteExists(this.state.data[i].mkid).then(function (flag) {
 	            if (flag) {
 	                $(".media .fav").eq(i).removeClass("glyphicon-star").addClass("glyphicon-star-empty");
-	                deleteFavorite(_this.state.data[i]);
+	                deleteFavorite(this.state.data[i]);
 	            } else {
 	                $(".media .fav").eq(i).removeClass("glyphicon-star-empty").addClass("glyphicon-star");
-	                addFavorite(_this.state.data[i]);
+	                addFavorite(this.state.data[i]);
 	            }
-	        });
+	        }).bind(this);
 	    },
 	    loadResultsFromServer: function loadResultsFromServer(e) {
 	        e.preventDefault();
