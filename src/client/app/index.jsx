@@ -154,17 +154,16 @@ var SearchLayout = React.createClass({
         return "glyphicon " + (pos < 0 ? "glyphicon-star-empty" : "glyphicon-star");
     },
     artistOnClick: function(i) {
-        var _this = this;
-
-        favoriteExists(_this.state.data[i].mkid).then(function(flag) {
+        var fav_exists = favoriteExists.bind(this);
+        fav_exists(this.state.data[i].mkid).then(function(flag) {
             if (flag) {
                 $(".media .fav").eq(i).removeClass("glyphicon-star").addClass("glyphicon-star-empty");
-                deleteFavorite(_this.state.data[i]);
+                deleteFavorite(this.state.data[i]);
             } else {
                 $(".media .fav").eq(i).removeClass("glyphicon-star-empty").addClass("glyphicon-star");
-                addFavorite(_this.state.data[i]);
+                addFavorite(this.state.data[i]);
             }
-        });
+        }.bind(this));
     },
     loadResultsFromServer: function(e) {
         e.preventDefault();
@@ -190,7 +189,6 @@ var SearchLayout = React.createClass({
         }.bind(this)});
     },
     render: function() {
-        var _this = this;
         var noResultsClasses = "";
 
         if (this.state.searchWasMade && !this.state.loading) {
@@ -231,11 +229,11 @@ var SearchLayout = React.createClass({
                                         name={obj.name}
                                         mkid={obj.mkid}
                                         key={i}
-                                        artistOnClick={_this.artistOnClick}
-                                        favClasses={_this.getFavClasses(obj)}
+                                        artistOnClick={this.artistOnClick}
+                                        favClasses={this.getFavClasses(obj)}
                                         index={i}
                                     />
-                                })}
+                            }.bind(this))}
                             </ul>
                             :
                             <h2 className={noResultsClasses}>No results.</h2>
@@ -262,8 +260,6 @@ var FavoritsLayout = React.createClass({
         });
     },
     render: function() {
-        var _this = this;
-
         return (
         <div className="favorits-layout">
             <div className="results-layout">
@@ -277,11 +273,11 @@ var FavoritsLayout = React.createClass({
                                 name={obj.name}
                                 mkid={obj.mkid}
                                 key={i}
-                                artistOnClick={_this.artistOnClick}
+                                artistOnClick={this.artistOnClick}
                                 favClasses={className}
                                 index={i}
                             />
-                        })}
+                    }.bind(this))}
                     </ul>
                     :
                     <h2 className="text-center">There is no favorits to present.</h2>
@@ -496,7 +492,7 @@ function favoriteExists(mkid) {
         return (m == mkid && u == user);
     }).done(function(items) {
         deferred.resolve(items.length > 0);
-    });
+    }.bind(this));
 
     return deferred.promise();
 };
